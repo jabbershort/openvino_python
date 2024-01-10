@@ -14,7 +14,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3.9 python3.9-dev python3.9-distutils
 
 RUN python3.9 -m pip install --upgrade pip
-RUN python3.9 -m pip install -r src/bindings/python/wheel/requirements-dev.txt
+RUN python3.9 -m pip install -r /openvino/src/bindings/python/wheel/requirements-dev.txt
 
 RUN mkdir build
 
