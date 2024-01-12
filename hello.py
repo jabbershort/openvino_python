@@ -1,5 +1,4 @@
 import cv2
-import matplotlib.pyplot as plt
 import numpy as np
 from openvino.runtime import Core
 
@@ -17,8 +16,8 @@ input_image = cv2.resize(src=image, dsize=(224, 224))
 
 # Reshape to model input shape.
 input_image = np.expand_dims(input_image, 0)
-cv2.imshow('input',image)
-cv2.waitKey(0)
+# cv2.imshow('input',image)
+# cv2.waitKey(0)
 
 result_infer = compiled_model([input_image])[output_layer]
 result_index = np.argmax(result_infer)
