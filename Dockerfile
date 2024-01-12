@@ -5,7 +5,9 @@ RUN apt-get update && \
     cmake \
     cython3 \
     python3-pip \
-    git
+    git \
+    libusb-1.0.0-dev \
+    libopencv-dev 
 
 RUN git clone --recurse-submodules --single-branch --branch=releases/2021/3 https://github.com/openvinotoolkit/openvino.git
 
