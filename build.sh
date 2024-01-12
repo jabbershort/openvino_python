@@ -10,13 +10,13 @@ else
     SUBFOLDER="aarch"
 fi
 
-# docker build -f python38.Dockerfile -t ov .
-# docker run --name ov-38 ov
-# mkdir build/py38
-# docker cp ov-38:/openvino/build/wheels build/py38/.
-# docker cp ov-38:/openvino/bin/$SUBFOLDER/Release/libopenvino_intel_myriad_plugin.so build/py38/wheels/.
-# docker cp ov-38:/openvino/bin/$SUBFOLDER/Release/usb-ma2x8x.mvcmd build/py38/wheels/.
-# docker rm ov-38
+docker build -f python38.Dockerfile -t ov .
+docker run --name ov-38 ov
+mkdir build/py38
+docker cp ov-38:/openvino/build/wheels build/py38/.
+docker cp ov-38:/openvino/bin/$SUBFOLDER/Release/libopenvino_intel_myriad_plugin.so build/py38/wheels/.
+docker cp ov-38:/openvino/bin/$SUBFOLDER/Release/usb-ma2x8x.mvcmd build/py38/wheels/.
+docker rm ov-38
 
 docker build -f python39.Dockerfile -t ov .
 docker rm ov-39
