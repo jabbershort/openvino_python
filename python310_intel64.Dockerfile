@@ -2,15 +2,15 @@ FROM ubuntu:22.04
 
 RUN apt-get update && \
     apt-get install -y \
-    git
+    git \
+    cython3
 
 RUN git clone --recurse-submodules --single-branch --branch=releases/2022/3 https://github.com/openvinotoolkit/openvino.git
 
 WORKDIR /openvino
 
 RUN DEBIAN_FRONTEND=noninteractive ./install_build_dependencies.sh
-RUN apt-get install -y cython3 && \
-    pip3 install --upgrade pip && \
+RUN pip3 install --upgrade pip && \
     pip3 install -r src/bindings/python/wheel/requirements-dev.txt
 
 RUN mkdir build

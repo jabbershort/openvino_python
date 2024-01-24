@@ -3,12 +3,12 @@ FROM ubuntu:22.04
 RUN apt-get update && \
     apt-get install -y \
     software-properties-common \
-    git
+    git \
+    cython3
 
 RUN git clone --recurse-submodules --single-branch --branch=releases/2022/3 https://github.com/openvinotoolkit/openvino.git
 
 RUN DEBIAN_FRONTEND=noninteractive ./openvino/install_build_dependencies.sh
-RUN apt install cython3
 
 RUN add-apt-repository ppa:deadsnakes/ppa
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3.9 python3.9-dev python3.9-distutils

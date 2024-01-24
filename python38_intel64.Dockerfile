@@ -2,12 +2,12 @@ FROM ubuntu:20.04
 
 RUN apt-get update && \
     apt-get install -y \
-    git
+    git \
+    cython3
 
 RUN git clone --recurse-submodules --single-branch --branch=releases/2022/3 https://github.com/openvinotoolkit/openvino.git
 
 RUN DEBIAN_FRONTEND=noninteractive ./openvino/install_build_dependencies.sh
-RUN apt install cython3
 
 RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install -r /openvino/src/bindings/python/wheel/requirements-dev.txt
