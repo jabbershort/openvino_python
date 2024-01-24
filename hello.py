@@ -3,6 +3,7 @@ import numpy as np
 from openvino.runtime import Core
 
 ie = Core()
+print(ie.available_devices)
 model = ie.read_model(model="models/v3-small_224_1.0_float.xml")
 compiled_model = ie.compile_model(model=model, device_name="MYRIAD")
 
