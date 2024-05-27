@@ -25,7 +25,7 @@ WORKDIR /openvino/build
 RUN cmake -DCMAKE_BUILD_TYPE=Release \
     -DENABLE_PYTHON=ON \
     -DPYTHON_EXECUTABLE=`which python3.9` \
-    -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.9.so \
+    -DPYTHON_LIBRARY=/usr/lib/aarch64-linux-gnu/libpython3.9.so \
     -DPYTHON_INCLUDE_DIR=/usr/include/python3.9 \
     -DEANBLE_SYSTEM_PUGIXML=OFF \
     -DENABLE_WHEEL=ON \
