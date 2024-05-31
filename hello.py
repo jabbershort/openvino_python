@@ -8,6 +8,14 @@ except ImportError:
     from openvino.inference_engine import IECore as Core
     VERSION = 2021
 
+
+def param_to_string(parameters) -> str:
+    """Convert a list / tuple of parameters returned from OV to a string."""
+    if isinstance(parameters, (list, tuple)):
+        return ', '.join([str(x) for x in parameters])
+    else:
+        return str(parameters)
+
 def run_test_2021(ie, device_name):
     model = ie.read_network(model="models/mobilenet-v3-small-1.0-224-tf.xml",weights="models/mobilenet-v3-small-1.0-224-tf.bin")
     compiled_model = ie.load_network(model, device_name=device_name, num_requests=1)
@@ -77,6 +85,26 @@ if __name__ == "__main__":
     devices = ie.available_devices
     for device in devices:
         print(f'Running on {device}')
+        print(f'{device} :')
+        print('\tSUPPORTED_METRICS:')
+        for metric in ie.get_metric(device, 'SUPPORTED_METRICS'):
+            if metric not in ('SUPPORTED_METRICS', 'SUPPORTED_CONFIG_KEYS'):
+                try:
+                    metric_val = ie.get_metric(device, metric)
+                except TypeError:
+                    metric_val = 'UNSUPPORTED TYPE'
+                print(f'\t\t{metric}: {param_to_string(metric_val)}')
+        print('')
+
+        print('\tSUPPORTED_CONFIG_KEYS (default values):')
+        for config_key in ie.get_metric(device, 'SUPPORTED_CONFIG_KEYS'):
+            try:
+                config_val = ie.get_config(device, config_key)
+            except TypeError:
+                config_val = 'UNSUPPORTED TYPE'
+            print(f'\t\t{config_key}: {param_to_string(config_val)}')
+        print('')
+
         if VERSION == 2021:
             run_test_2021(ie,device)
         else:
