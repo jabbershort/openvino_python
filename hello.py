@@ -15,6 +15,7 @@ def param_to_string(parameters) -> str:
         return ', '.join([str(x) for x in parameters])
     else:
         return str(parameters)
+image_path = "images/elephant.jpg"
 
 def run_test_2021(ie, device_name):
     model = ie.read_network(model="models/mobilenet-v3-small-1.0-224-tf.xml",weights="models/mobilenet-v3-small-1.0-224-tf.bin")
@@ -23,7 +24,7 @@ def run_test_2021(ie, device_name):
     output_key = next(iter(compiled_model.outputs.keys()))
 
     # The MobileNet model expects images in RGB format.
-    image = cv2.cvtColor(cv2.imread(filename="images/elephant.jpg"), code=cv2.COLOR_BGR2RGB)
+    image = cv2.cvtColor(cv2.imread(filename=image_path), code=cv2.COLOR_BGR2RGB)
 
     # Resize to MobileNet image shape.
     input_image = cv2.resize(src=image, dsize=(224, 224))
@@ -53,13 +54,13 @@ def run_test_2022(ie, device_name):
     output_layer = compiled_model.output(0)
 
     # The MobileNet model expects images in RGB format.
-    image = cv2.cvtColor(cv2.imread(filename="images/elephant.jpg"), code=cv2.COLOR_BGR2RGB)
+    image = cv2.cvtColor(cv2.imread(filename=image_path), code=cv2.COLOR_BGR2RGB)
 
     # Resize to MobileNet image shape.
     input_image = cv2.resize(src=image, dsize=(224, 224))
 
     # Reshape to model input shape.
-    input_image = np.expand_dims(input_image.transpose(2, 0, 1), 0)
+    input_image = np.expand_dims(input_image,0)
 
     for i in range(5):
         result_infer = compiled_model([input_image])[output_layer]
